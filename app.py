@@ -1,5 +1,8 @@
 from flask import Flask, render_template, Response
 import cv2
+import logging
+
+logging.basicConfig()
 
 app = Flask(__name__)
 
