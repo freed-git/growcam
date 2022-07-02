@@ -21,6 +21,12 @@ tasklist /svc /FI "PID eq <pid>"
 stop-process <pid>
 ```
 
+## test server listening on port
+
+```
+tnc 127.0.0.1 -port 5555
+```
+
 ## for git on windows to use lf
 
 ```
