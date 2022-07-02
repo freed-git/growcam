@@ -1,3 +1,4 @@
 opencv-contrib-python
 imagezmq
 imutils
+werkzeug
