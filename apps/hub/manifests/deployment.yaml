@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hub
+  labels:
+    app: hub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hub
+  template:
+    metadata:
+      labels:
+        app: hub
+    spec:
+      containers:
+      - name: hub
+        image: deepvoid/hub
+        imagePullPolicy: Always
+        # env:
+        #   - name: PYTHONUNBUFFERED
+        #     value: "1"
+        #   - name: OTEL_PYTHON_LOG_CORRELATION
+        #     value: "true"
+        #   - name: OTEL_RESOURCE_ATTRIBUTES
+        #     value: "namespace=obs-demo,app=hub"
+        #   - name: OTEL_PYTHON_FLASK_EXCLUDED_URLS
+        #     value: "/health"
+        ports:
+        - containerPort: 5555
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 5555
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 5

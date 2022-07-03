@@ -12,12 +12,12 @@ def create_sender(connect_to=None):
     sender.zmq_socket.setsockopt(zmq.SNDTIMEO, 2000)
     return sender
 
-connect_to='tcp://192.168.1.26:5555'
+connect_to='tcp://192.168.1.201:5555'
 sender = create_sender(connect_to=connect_to)
 time_between_restarts = 5
 
 rpi_name = socket.gethostname() # send unique RPi hostname with each image
-picam = VideoStream(usePiCamera=True).start()
+picam = VideoStream(usePiCamera=False).start()
 time.sleep(2.0)  # allow camera sensor to warm up
 
 while True:  # send images as stream until Ctrl-C

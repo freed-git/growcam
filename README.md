@@ -1,3 +1,9 @@
+## docker
+
+```
+docker build -t deepvoid/trace-cli -f apps/trace-cli/Dockerfile apps/trace-cli/
+```
+
 # growcam
 
 sudo raspi-config --expand-rootfs
