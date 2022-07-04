@@ -1,11 +1,15 @@
-FROM python:3.7.9
+FROM python:3.7.9-slim-buster
+
+RUN apt-get update && apt-get install -y libgl1 libglib2.0-0
+
+COPY requirements.txt /app/requirements.txt
+
+RUN pip install -r /app/requirements.txt
 
 COPY . /app
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+ENTRYPOINT [ "python" ]
 
-ENTRYPOINT [ "flask" ]
-
-CMD [ "run", "--host=0.0.0.0" ]
+CMD [ "app.py" ]

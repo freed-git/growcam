@@ -23,4 +23,4 @@ def application(request):
 
 if __name__ == '__main__':
     # This code starts simple HTTP server that listens on interface with IP 192.168.1.26, port 4000
-    run_simple('192.168.1.26', 4000, application)
+    run_simple('0.0.0.0', 4000, application)
