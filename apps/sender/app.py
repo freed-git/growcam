@@ -17,7 +17,7 @@ sender = create_sender(connect_to=connect_to)
 time_between_restarts = 5
 
 rpi_name = socket.gethostname() # send unique RPi hostname with each image
-picam = VideoStream(usePiCamera=False, resolution=(1920, 1080)).start()
+picam = VideoStream(usePiCamera=True, resolution=(1920, 1080)).start()
 time.sleep(2.0)  # allow camera sensor to warm up
 
 while True:  # send images as stream until Ctrl-C
