@@ -5,7 +5,7 @@ from werkzeug.serving import run_simple
 
 def sendImagesToWeb():
     # When we have incoming request, create a receiver and subscribe to a publisher
-    receiver = imagezmq.ImageHub(open_port='tcp://localhost:5566', REQ_REP = False)
+    receiver = imagezmq.ImageHub(open_port='tcp://192.168.1.201:5566', REQ_REP = False)
     while True:
         # Pull an image from the queue
         camName, frame = receiver.recv_image()
@@ -22,5 +22,5 @@ def application(request):
     return Response(sendImagesToWeb(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    # This code starts simple HTTP server that listens on interface with IP 192.168.0.114, port 4000
+    # This code starts simple HTTP server that listens on interface with IP 192.168.1.26, port 4000
     run_simple('192.168.1.26', 4000, application)

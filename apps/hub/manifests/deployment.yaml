@@ -29,6 +29,7 @@ spec:
         #     value: "/health"
         ports:
         - containerPort: 5555
+        - containerPort: 5566
         resources:
           requests:
             memory: "64Mi"
