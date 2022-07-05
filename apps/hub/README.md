@@ -11,9 +11,9 @@ docker push deepvoid/hub
 ## kubectl
 
 ```
-kubectl apply -f apps/hub/manifests
+kubectl apply -f apps/hub/manifests -n growcam
 
-kubectl rollout restart deployment hub
+kubectl rollout restart deployment hub -n growcam
 ```
 
 ## bash
