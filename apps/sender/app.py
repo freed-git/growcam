@@ -30,11 +30,11 @@ while True:  # send images as stream until Ctrl-C
     fps.update()
     fps.stop()
 
-    result = str(fps.fps())
+    result = fps.fps()
 
     # timestamp = datetime.datetime.now()
     # ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
-    cv2.putText(image, fps, (10, image.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
+    cv2.putText(image, result, (10, image.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
     0.35, (0, 0, 255), 1)
 
     try:
