@@ -6,6 +6,7 @@ import zmq
 import traceback
 import cv2
 # import datetime
+import simplejpeg
 
 def create_sender(connect_to=None):
     sender = imagezmq.ImageSender(connect_to=connect_to)
@@ -17,6 +18,7 @@ def create_sender(connect_to=None):
 connect_to='tcp://192.168.1.201:5555'
 sender = create_sender(connect_to=connect_to)
 time_between_restarts = 5
+jpeg_quality = 95
 
 rpi_name = socket.gethostname() # send unique RPi hostname with each image
 picam = VideoStream(usePiCamera=True, resolution=(240, 192)).start()
@@ -26,6 +28,8 @@ fps = FPS().start()
 
 while True:  # send images as stream until Ctrl-C
     image = picam.read()
+
+    jpg_buffer = simplejpeg.encode_jpeg(image, quality=jpeg_quality, colorspace='BGR')
 
     fps.update()
     fps.stop()
@@ -38,7 +42,8 @@ while True:  # send images as stream until Ctrl-C
     0.35, (0, 0, 255), 1)
 
     try:
-        sender.send_image(rpi_name, image)
+        # sender.send_image(rpi_name, image)
+        reply_from_mac = sender.send_jpg(rpi_name, jpg_buffer)
     except Exception as e:
         print('Python error with no Exception handler:')
         print('Traceback error:', e)
