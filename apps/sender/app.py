@@ -1,9 +1,11 @@
 import socket
 import time
-from imutils.video import VideoStream
+from imutils.video import VideoStream, FPS
 import imagezmq
 import zmq
 import traceback
+import cv2
+# import datetime
 
 def create_sender(connect_to=None):
     sender = imagezmq.ImageSender(connect_to=connect_to)
@@ -20,8 +22,20 @@ rpi_name = socket.gethostname() # send unique RPi hostname with each image
 picam = VideoStream(usePiCamera=True, resolution=(640, 480)).start()
 time.sleep(2.0)  # allow camera sensor to warm up
 
+fps = FPS().start()
+
 while True:  # send images as stream until Ctrl-C
     image = picam.read()
+
+    fps.update()
+    fps.stop()
+
+    result = fps.fps()
+
+    # timestamp = datetime.datetime.now()
+    # ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
+    cv2.putText(image, fps, (10, image.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
+    0.35, (0, 0, 255), 1)
 
     try:
         sender.send_image(rpi_name, image)
