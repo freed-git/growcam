@@ -30,7 +30,7 @@ while True:  # send images as stream until Ctrl-C
     fps.update()
     fps.stop()
 
-    result = fps.fps()
+    result = str(fps.fps())
 
     # timestamp = datetime.datetime.now()
     # ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
