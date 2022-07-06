@@ -8,11 +8,13 @@ def sendImagesToWeb():
     receiver = imagezmq.ImageHub(open_port='tcp://192.168.1.201:5566', REQ_REP = False)
     while True:
         # Pull an image from the queue
-        camName, frame = receiver.recv_image()
+        # camName, frame = receiver.recv_image()
+        camName, frame = receiver.recv_jpg()
         # Using OpenCV library create a JPEG image from the frame we have received
-        jpg = cv2.imencode('.jpg', frame)[1]
+        # jpg = cv2.imencode('.jpg', frame)[1]
         # Convert this JPEG image into a binary string that we can send to the browser via HTTP
-        yield b'--frame\r\nContent-Type:image/jpeg\r\n\r\n'+jpg.tostring()+b'\r\n'
+        # yield b'--frame\r\nContent-Type:image/jpeg\r\n\r\n'+jpg.tostring()+b'\r\n'
+        yield b'--frame\r\nContent-Type:image/jpeg\r\n\r\n'+frame+b'\r\n'
 
 # Add `application` method to Request class and define this method here
 @Request.application

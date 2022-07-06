@@ -24,7 +24,9 @@ stream_monitor = imagezmq.ImageSender(connect_to = 'tcp://*:5566', REQ_REP = Fal
 
 # Start main loop
 while True:
-    rpi_name, image = image_hub.recv_image()
+    # rpi_name, image = image_hub.recv_image()
+    rpi_name, image = image_hub.recv_jpg()
     image_hub.send_reply(b'OK')
-    processImage(image)
-    stream_monitor.send_image(rpi_name, image)
+    # processImage(image)
+    # stream_monitor.send_image(rpi_name, image)
+    stream_monitor.send_jpg(rpi_name, image)

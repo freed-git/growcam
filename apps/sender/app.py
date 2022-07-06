@@ -20,7 +20,8 @@ time_between_restarts = 5
 jpeg_quality = 95
 
 rpi_name = socket.gethostname() # send unique RPi hostname with each image
-picam = VideoStream(usePiCamera=True, resolution=(240, 192)).start()
+# picam = VideoStream(usePiCamera=True, resolution=(240, 192)).start()
+picam = VideoStream(usePiCamera=True, resolution=(640, 480)).start()
 time.sleep(2.0)  # allow camera sensor to warm up
 
 fps = FPS().start()

@@ -11,9 +11,9 @@ docker push deepvoid/webserver
 ## kubectl
 
 ```
-kubectl apply -f apps/webserver/manifests
+kubectl apply -f apps/webserver/manifests -n growcam
 
-kubectl rollout restart deployment webserver
+kubectl rollout restart deployment webserver -n growcam
 ```
 
 ## bash
