@@ -29,6 +29,9 @@ fps = FPS().start()
 while True:  # send images as stream until Ctrl-C
     image = picam.read()
 
+    cv2.putText(image, result, (10, image.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
+    0.35, (0, 0, 255), 1)
+
     ret_code, jpg_buffer = cv2.imencode(".jpg", image, [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality])
     jpg_buffer = jpg_buffer.tobytes()
 
@@ -39,8 +42,7 @@ while True:  # send images as stream until Ctrl-C
 
     # timestamp = datetime.datetime.now()
     # ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
-    cv2.putText(image, result, (10, image.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
-    0.35, (0, 0, 255), 1)
+
 
     try:
         # sender.send_image(rpi_name, image)
