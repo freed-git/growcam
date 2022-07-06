@@ -6,7 +6,6 @@ import zmq
 import traceback
 import cv2
 # import datetime
-import simplejpeg
 
 def create_sender(connect_to=None):
     sender = imagezmq.ImageSender(connect_to=connect_to)
@@ -29,7 +28,8 @@ fps = FPS().start()
 while True:  # send images as stream until Ctrl-C
     image = picam.read()
 
-    jpg_buffer = simplejpeg.encode_jpeg(image, quality=jpeg_quality, colorspace='BGR')
+    ret_code, jpg_buffer = cv2.imencode(".jpg", image, [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality])
+    jpg_buffer = jpg_buffer.tobytes()
 
     fps.update()
     fps.stop()

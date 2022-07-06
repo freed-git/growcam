@@ -1,4 +1,3 @@
 opencv-contrib-python
 imagezmq
 imutils
-simplejpeg
