@@ -20,7 +20,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: PUB_HOST
-            value: "127.0.0.1"
+            value: "pub"
           - name: PUB_PORT
             value: "5555"
         resources:
