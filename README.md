@@ -40,3 +40,17 @@ git config --global core.eol lf
 git config --global core.autocrlf false
 git config --global core.autocrlf input
 ```
+
+
+
+## PUB
+
+docker build -t deepvoid/pub -f pub/Dockerfile pub
+docker push deepvoid/pub
+docker run --rm -it --network host deepvoid/pub
+
+## SUB
+
+docker build -t deepvoid/sub -f sub/Dockerfile sub
+docker push deepvoid/sub
+docker run --rm -it --network host deepvoid/sub
