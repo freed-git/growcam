@@ -49,6 +49,7 @@ docker build -t deepvoid/pub -f pub/Dockerfile pub
 docker push deepvoid/pub
 docker run --rm -it --network host deepvoid/pub
 kubectl apply -f pub/manifests
+kubectl delete -f pub/manifests
 
 ## SUB
 
@@ -56,3 +57,12 @@ docker build -t deepvoid/sub -f sub/Dockerfile sub
 docker push deepvoid/sub
 docker run --rm -it --network host deepvoid/sub
 kubectl apply -f sub/manifests
+kubectl delete -f sub/manifests
+
+
+kubectl run -it --image=ubuntu:focal bash
+kubectl rollout restart deploy sub
+
+apt update && apt upgrade -y && apt install -y netcat dnsutils
+
+nslookup pub-headless

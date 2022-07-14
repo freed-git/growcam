@@ -1,14 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: pub
-  labels:
-    app: pub
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: pub
+  serviceName: pub-headless
+  replicas: 2
   template:
     metadata:
       labels:
@@ -25,6 +24,7 @@ spec:
             value: "5555"
         ports:
         - containerPort: 5555
+          name: web
         resources:
           requests:
             memory: "64Mi"
