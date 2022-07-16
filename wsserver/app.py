@@ -22,9 +22,8 @@ async def health_check(path, request_headers):
     if path == "/healthz":
         return http.HTTPStatus.OK, [], b"OK\n"
     if path == "/inemuri":
-        # loop = asyncio.get_running_loop()
-        # loop.call_later(1, asyncio.create_task, asyncio.sleep(10))
-        await asyncio.sleep(10)
+        loop = asyncio.get_running_loop()
+        loop.call_later(1, time.sleep, 10)
         return http.HTTPStatus.OK, [], b"Sleeping for 10s\n"
     if path == "/seppuku":
         loop = asyncio.get_running_loop()
@@ -36,11 +35,11 @@ async def main():
     # Set the stop condition when receiving SIGTERM.
     loop = asyncio.get_running_loop()
     stop = loop.create_future()
-    # loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
+    loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
 
     async with websockets.serve(
         slow_echo,
-        host="",
+        host="0.0.0.0",
         port=80,
         process_request=health_check,
     ):

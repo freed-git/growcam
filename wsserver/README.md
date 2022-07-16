@@ -12,6 +12,10 @@ kubectl scale deployment/wsserver --replicas=10
 nc -zv localhost 32080
 python -m websockets ws://localhost:32080/
 time python benchmark.py 500 6
+Measure-Command { python .\benchmark.py 500 6 }
+
 
 
 curl http://localhost:32080/inemuri
+
+https://websockets.readthedocs.io/en/stable/howto/kubernetes.html
