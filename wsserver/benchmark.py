@@ -17,8 +17,7 @@ async def run(client_id, messages):
 
 async def benchmark(clients, messages):
     await asyncio.wait([
-        asyncio.create_task(run(client_id, messages))
-        for client_id in range(clients)
+        asyncio.create_task(run(client_id, messages)) for client_id in range(clients)
     ])
 
 
