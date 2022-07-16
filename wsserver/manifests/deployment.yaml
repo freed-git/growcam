@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wsserver
+spec:
+  selector:
+    matchLabels:
+      app: wsserver
+  template:
+    metadata:
+      labels:
+        app: wsserver
+    spec:
+      containers:
+      - name: wsserver
+        image: deepvoid/wsserver
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          periodSeconds: 1
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
