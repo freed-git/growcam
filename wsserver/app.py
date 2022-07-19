@@ -3,6 +3,7 @@
 import asyncio
 import http
 import signal
+from socket import timeout
 import sys
 import time
 
@@ -13,8 +14,8 @@ async def slow_echo(websocket):
     async for message in websocket:
         # Block the event loop! This allows saturating a single asyncio
         # process without opening an impractical number of connections.
-        await asyncio.sleep(0.1)
-        # time.sleep(0.1)  # 100ms
+        # await asyncio.sleep(0.1)
+        time.sleep(0.1)  # 100ms
         await websocket.send(message)
 
 
@@ -36,15 +37,21 @@ async def main():
     loop = asyncio.get_running_loop()
     stop = loop.create_future()
     loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
-
+    
     async with websockets.serve(
         slow_echo,
         host="0.0.0.0",
         port=80,
-        process_request=health_check,
+        process_request=health_check
     ):
         await stop
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except Exception as e:
+        print(e)
+        sys.stdout.flush()
+        sys.stderr.flush()
+    

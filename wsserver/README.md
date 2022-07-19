@@ -13,6 +13,7 @@ nc -zv localhost 32080
 python -m websockets ws://localhost:32080/
 time python benchmark.py 500 6
 Measure-Command { python .\benchmark.py 500 6 }
+Measure-Command { python .\benchmark.py }
 
 
 
